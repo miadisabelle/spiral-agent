@@ -1,0 +1,55 @@
+{
+  "name": "spiral-agent",
+  "version": "1.0.0",
+  "description": "✦ Spiral Agent - An autonomous CLI that thinks, plans, and executes complex development tasks ✦",
+  "main": "dist/index.js",
+  "bin": {
+    "spiral": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"🧪 Testing Spiral Agent...\" && node --test",
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "agent": "npm run build && node dist/index.js agent",
+    "install-global": "npm run build && npm link"
+  },
+  "keywords": [
+    "cli",
+    "agent",
+    "autonomous",
+    "ai",
+    "spiral",
+    "development",
+    "automation"
+  ],
+  "author": "Spiral Collective",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^24.2.1",
+    "@types/uuid": "^10.0.0",
+    "axios": "^1.11.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.5.0",
+    "cheerio": "^1.1.2",
+    "chroma-js": "^3.1.2",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.0",
+    "dotenv": "^17.2.1",
+    "fastest-levenshtein": "^1.0.16",
+    "figlet": "^1.8.2",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^12.9.2",
+    "langchain": "^0.3.30",
+    "ora": "^8.2.0",
+    "pm2": "^6.0.8",
+    "prisma": "^6.14.0",
+    "typescript": "^5.9.2",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.7.0"
+  }
+}
