@@ -1,0 +1,42 @@
+// Database schema for Spiral CLI
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Memory {
+  id        String   @id @default(cuid())
+  content   String
+  metadata  Json?
+  embedding String?
+  timestamp DateTime @default(now())
+  
+  @@map("memories")
+}
+
+model Context {
+  id          String   @id @default(cuid())
+  objective   String
+  history     Json
+  metadata    Json?
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("contexts")
+}
+
+model Plugin {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  version     String
+  enabled     Boolean  @default(true)
+  config      Json?
+  installedAt DateTime @default(now())
+  
+  @@map("plugins")
+}
