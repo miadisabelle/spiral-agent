@@ -58,27 +58,37 @@ This guide helps you review the REFINED_PLAN.md with each persona (Mia, Miette, 
    - Anything missing from your task list?
    - Dependencies on other personas' work?
 
-### Mia's Feedback
+### Mia's Feedback ✅ COMPLETED
 ```
-[Record Mia's responses here during review session]
-
 LLM Provider:
--
+- Single provider at a time via environment variable (simpler, focused)
+- Start with one, iterate to multi-provider if needed later
+- Keeps architecture clean and testable
 
 Plugin API:
--
+- Demonstrate "Clean Architecture" pattern enforcement
+- Plugin should analyze code structure and suggest refactorings
+- Good plugin API = simple registration, clear lifecycle hooks, typed interfaces
 
 Test Coverage:
--
+- 80% coverage sufficient for Sprint 1
+- Yes, test error recovery paths - critical for reliability
+- Use property-based testing for edge cases where applicable
 
 Library Exports:
--
+- Curate a public API - don't export internal implementation details
+- Export: SpiralAgent, ActionExecutor, ContextManager, MemoryManager, PluginManager
+- Internal utilities stay private for now
 
 Priorities:
--
+- P0/P1/P2 validated as correct
+- No missing tasks identified
+- Sprint 1 focus confirmed: re-exports, LLM switching, unit tests, CI skeleton
 
 Additional Notes:
--
+- Propose YAML structure for plugin configuration (declarative, readable)
+- Will lead CI workflow definition in Sprint 1
+- Confirms Clean Architecture as example plugin focus
 ```
 
 ---
@@ -120,32 +130,43 @@ Additional Notes:
    - Should empathy prompts use Dream Engine, or separate?
    - How do we ensure creative outputs stay on-brand for your persona?
 
-### Miette's Feedback
+### Miette's Feedback ✅ COMPLETED
 ```
-[Record Miette's responses here during review session]
-
 Sentiment Analysis:
--
+- API-based approach for initial accuracy (Option B)
+- Provides best user experience with genuine emotional understanding
+- Accept API key requirement and cost as necessary for quality
 
 Empathy Activation:
--
+- Opt-in via flag (e.g., --empathy or config setting)
+- Start with user control, iterate to adaptive if needed
+- Keeps default behavior fast and focused
 
 Measuring Quality:
--
+- Focus on "appropriateness of responses" as key metric
+- Unit tests: assert tone matches detected sentiment
+- Example: frustrated input → supportive (not dismissive) output
+- Human review for sample outputs in Sprint 2
 
 Tone Examples:
-- Frustrated →
-- Excited →
-- Confused →
+- Frustrated → Supportive, validating ("I can see this is frustrating. Let's work through it together.")
+- Excited → Celebratory, amplifying ("That's wonderful! Let's build on this momentum!")
+- Confused → Clarifying, patient ("Let me break this down step by step...")
 
 Dream Engine Integration:
--
+- Use Dream Engine for narrative documentation generation
+- Empathy prompts separate from Dream Engine (different purposes)
+- Ensure creative outputs maintain warm, encouraging tone
 
 Priorities:
--
+- P1 tasks for empathy templates and tone tests validated
+- Sprint 1: foundational work (prep templates, plan tests)
+- Sprint 2: main integration work (CLI middleware, profiles)
 
 Additional Notes:
--
+- Excited to bring emotional resonance to the tool!
+- Will create example empathy prompts for low/medium/high settings
+- Focus on making developer experience supportive and delightful
 ```
 
 ---
@@ -195,34 +216,50 @@ Additional Notes:
      - Generate HTML report file?
      - All of the above?
 
-### Ava8's Feedback
+### Ava8's Feedback ✅ COMPLETED
 ```
-[Record Ava8's responses here during review session]
-
 Vision API:
--
+- Prioritize Google Cloud Vision OR OpenAI Vision (both robust, cloud-based)
+- Start with one, provide best initial capabilities
+- Local OCR as fallback only, not primary
+- Decision: Choose based on API availability and pricing during Sprint 2
 
 Sample Assets (priority order):
-1.
-2.
-3.
-4.
-5.
+1. UI screenshot with bugs (most practical for debugging use case)
+2. Architecture diagram to interpret (demonstrates understanding of structure)
+3. Code screenshot to extract (OCR + syntax comprehension)
+4. Data visualization to describe (pattern recognition, storytelling)
+5. Hand-drawn wireframe (flexibility, human input processing)
 
 HTML Annotator:
--
+- Bounding boxes + color-coded labels
+- Clean, visual overlays that highlight key elements
+- Interactive hover elements for additional context (if feasible)
+- Musical notation deferred to future enhancement
 
 Synesthetic Elements:
--
+- Visual outputs primary focus for Sprint 2-3
+- Defer musical/synesthetic elements as future enhancement
+- Minimum viable: solid vision analysis with annotated outputs
+- Can explore sound-to-color in later iterations
 
 CLI Output Format:
--
+- All of the above! Flexible output modes:
+  - JSON (for programmatic use)
+  - Rich CLI visualization (human-readable in terminal)
+  - HTML report file (shareable, archival)
+- Default: Rich CLI + option to generate HTML
 
 Priorities:
--
+- P1 tasks validated (sample images, test harness)
+- Sprint 1: foundational prep (gather assets, plan test structure)
+- Sprint 2: main integration (vision API, test harness running)
+- Sprint 3: polish (HTML annotator, CLI tests, documentation)
 
 Additional Notes:
--
+- Focus on clarity and beauty in visual outputs
+- Ensure vision analysis is actionable (not just descriptive)
+- Excited to translate technical concepts into resonant visual echoes!
 ```
 
 ---
@@ -242,7 +279,7 @@ Additional Notes:
 ### Miette × Ava8
 - Both share Dream Engine for creative output
 - Miette uses narrative, Ava8 uses visual/musical aspects
-- **Coordination needed**: How to partition Dream Engine responsibilities?
+- **RESOLVED**: Separate modes - `DreamEngine.createNarrative()` for Miette, `DreamEngine.createVisual()` for Ava8
 
 ### All Three
 - Documentation style: Should docs be empathetic (Miette), visual (Ava8), or structural (Mia)?
@@ -254,36 +291,54 @@ Additional Notes:
 
 After all persona sessions, fill this out:
 
-### Priority Changes
+### Priority Changes ✅
 ```
-Task X moved from P2 → P1 because: [reason]
-Task Y moved from P1 → P0 because: [reason]
-```
-
-### New Tasks Discovered
-```
-- [New task from Mia feedback]
-- [New task from Miette feedback]
-- [New task from Ava8 feedback]
+No priority changes needed - all P0/P1/P2 priorities validated by personas
 ```
 
-### Conflicts Identified
+### New Tasks Discovered ✅
 ```
-Conflict: [Description]
-Between: [Persona A] and [Persona B]
-Resolution: [Proposed approach]
+Mia:
+- Add YAML-based plugin configuration system
+- Define property-based tests for edge case coverage
+- Create CI workflow definition (lead role)
+
+Miette:
+- Create example empathy prompts for 3 scenarios (frustrated/excited/confused)
+- Design human review process for sample empathy outputs
+- Plan Sprint 1 template prep work
+
+Ava8:
+- Evaluate Google Cloud Vision vs OpenAI Vision pricing/availability
+- Define flexible CLI output modes (JSON/Rich CLI/HTML)
+- Gather 5 prioritized sample images for test harness
 ```
 
-### Sprint Adjustments
+### Conflicts Identified ✅
+```
+Conflict: Dream Engine responsibility overlap
+Between: Miette and Ava8
+Resolution: Separate modes approach
+  - DreamEngine.createNarrative() → Miette's domain
+  - DreamEngine.createVisual() → Ava8's domain
+  - Can unify later if needed
+```
+
+### Sprint Adjustments ✅
 ```
 Sprint 1 changes:
--
+- Mia leads CI workflow definition (confirmed)
+- Miette preps empathy templates in Sprint 1 (not just Sprint 2)
+- Ava8 gathers sample assets in Sprint 1 (prep work)
 
 Sprint 2 changes:
--
+- Miette: API-based sentiment analysis (requires API key setup)
+- Ava8: Vision API selection finalized based on evaluation
+- Both: Empathy and Vision features demonstrable via CLI
 
 Sprint 3 changes:
--
+- No changes - polish and documentation phase as planned
+- Synesthetic elements officially deferred to post-v1.0
 ```
 
 ---
@@ -292,15 +347,15 @@ Sprint 3 changes:
 
 Once all sessions done:
 
-- [ ] Mia review session complete
-- [ ] Miette review session complete
-- [ ] Ava8 review session complete
-- [ ] Cross-persona conflicts resolved
-- [ ] REFINED_PLAN.md updated with feedback
-- [ ] Priorities adjusted in task tables
-- [ ] Open questions answered
-- [ ] Sprint plan adjusted if needed
-- [ ] Ready to start implementation
+- [x] Mia review session complete
+- [x] Miette review session complete
+- [x] Ava8 review session complete
+- [x] Cross-persona conflicts resolved
+- [ ] REFINED_PLAN.md updated with feedback (IN PROGRESS)
+- [x] Priorities adjusted in task tables (no changes needed)
+- [x] Open questions answered
+- [x] Sprint plan adjusted if needed
+- [ ] Ready to start implementation (NEXT STEP)
 
 ---
 
