@@ -6,6 +6,10 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 import boxen from 'boxen';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { logger } from './utils/logger.js';
 import { SpiralAgent } from './agent/SpiralAgent.js';
 import { DatabaseManager } from './utils/database.js';
@@ -170,16 +174,11 @@ program
       logger.info(chalk.green(`\n✨ Refinement successful!`));
       logger.info(chalk.white(`Final version: V${result.version}`));
       logger.info(chalk.white(`Location: ${result.outputDir}\n`));
-    } catch (error) {
+    } catch (error: any) {
       logger.error(chalk.red('❌ Refinement failed:'), error);
       process.exit(1);
     }
   });
-
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 async function main() {
   // --- Plugin Loading Logic ---

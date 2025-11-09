@@ -82,7 +82,7 @@ export class NarrativeAnalysis {
     // === STRUCTURAL ANALYSIS ===
     const hasThreeActStructure = this.detectThreeActStructure(story);
     const hasIncitingIncident = this.detectIncitingIncident(story);
-    const hasClim ax = this.detectClimax(story);
+    const hasClimax = this.detectClimax(story);
     const causeEffectChain = this.analyzeCauseEffect(story);
 
     // Strengths detection

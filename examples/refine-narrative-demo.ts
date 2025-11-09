@@ -70,14 +70,14 @@ async function demonstrateNarrativeRefinement() {
     console.log(chalk.italic.dim(`"The story has been woven, unwoven, and rewoven."`));
     console.log(chalk.italic.dim(`"It is strong and true." — Grandma Yazhi\n`));
 
-  } catch (error) {
+  } catch (error: any) {
     logger.error(chalk.red('\n❌ Demonstration failed:'), error);
     process.exit(1);
   }
 }
 
 // Run demonstration
-demonstrateNarrativeRefinement().catch(error => {
+demonstrateNarrativeRefinement().catch((error: any) => {
   logger.error(chalk.red('Fatal error:'), error);
   process.exit(1);
 });
