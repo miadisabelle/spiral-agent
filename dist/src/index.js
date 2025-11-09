@@ -6,10 +6,6 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 import boxen from 'boxen';
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { logger } from './utils/logger.js';
 import { SpiralAgent } from './agent/SpiralAgent.js';
 import { DatabaseManager } from './utils/database.js';
@@ -153,6 +149,10 @@ program
         process.exit(1);
     }
 });
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 async function main() {
     // --- Plugin Loading Logic ---
     const pluginsDir = path.join(dirname(fileURLToPath(import.meta.url)), 'plugins');
