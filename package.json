@@ -1,6 +1,6 @@
 {
   "name": "spiral-agent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "✦ Spiral Agent - An autonomous CLI that thinks, plans, and executes complex development tasks ✦",
   "main": "dist/index.js",
   "bin": {
