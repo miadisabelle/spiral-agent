@@ -12,6 +12,7 @@
 
 import { logger } from '../utils/logger.js';
 import chalk from 'chalk';
+import type { SharedContext } from './SharedContext.js';
 
 export interface PlotAnalysisReport {
   strengths: string[];
@@ -49,8 +50,9 @@ export class NarrativeAnalysis {
   private editorState: EditorState;
   private analysisHistory: Map<string, any>;
   private wisdomPrinciples: Map<string, string[]>;
+  private sharedContext?: SharedContext | undefined;
 
-  constructor() {
+  constructor(sharedContext?: SharedContext | undefined) {
     this.editorState = {
       wisdom: 92,
       structural: 98,
@@ -61,6 +63,7 @@ export class NarrativeAnalysis {
 
     this.analysisHistory = new Map();
     this.wisdomPrinciples = new Map();
+    this.sharedContext = sharedContext;
 
     this.initializeWisdomPrinciples();
 
@@ -139,6 +142,33 @@ export class NarrativeAnalysis {
     logger.info(chalk.green(`✅ Plot analysis complete: ${strengths.length} strengths, ${weaknesses.length} areas for improvement`));
 
     this.analysisHistory.set('plot', report);
+
+    // Record this as a shared experience if we're in relational memory mode
+    if (this.sharedContext) {
+      const ceremony = this.sharedContext.getCurrentCeremony();
+      const ceremonyName = ceremony?.name || 'narrative-refinement';
+
+      await this.sharedContext.weRemember(
+        `Yazhi analyzed the plot structure and found ${strengths.length} strengths and ${weaknesses.length} areas for growth`,
+        {
+          withWhom: ['yazhi'],
+          duringCeremony: ceremonyName,
+          fromMyPerspective: weaknesses.length > 0
+            ? `I see where the structure needs strengthening: ${weaknesses[0] || 'structural improvements needed'}`
+            : 'The plot structure feels solid',
+          fromTheirPerspectives: new Map([
+            ['yazhi', strengths.length > 0
+              ? `This narrative has good bones: ${strengths[0] || 'solid foundation'}. With attention to ${weaknesses[0] || 'refinement'}, it will be strong.`
+              : `The story needs structural work: ${weaknesses[0] || 'foundation building'}. This is the beginning of the craft.`
+            ]
+          ]),
+          emotionalQuality: weaknesses.length > strengths.length ? 'constructive-challenge' : 'affirmation',
+          whatEmerged: suggestions.length > 0 ? `Clear path forward: ${suggestions[0]}` : 'Structural understanding',
+          relationshipType: 'mentorship'
+        }
+      );
+    }
+
     this.editorState.currentFocus = 'idle';
 
     return report;
@@ -199,6 +229,33 @@ export class NarrativeAnalysis {
     logger.info(chalk.green(`✅ Pacing analysis complete: ${strengths.length} strengths, ${weaknesses.length} areas for improvement`));
 
     this.analysisHistory.set('pacing', report);
+
+    // Record this as a shared experience if we're in relational memory mode
+    if (this.sharedContext) {
+      const ceremony = this.sharedContext.getCurrentCeremony();
+      const ceremonyName = ceremony?.name || 'narrative-refinement';
+
+      await this.sharedContext.weRemember(
+        `Yazhi listened to the rhythm and breath of the narrative, noting ${strengths.length} strengths and ${weaknesses.length} areas to refine`,
+        {
+          withWhom: ['yazhi'],
+          duringCeremony: ceremonyName,
+          fromMyPerspective: rhythmAnalysis.hasRushedSections || rhythmAnalysis.hasDraggingSections
+            ? 'I can feel where the pacing stumbles - some moments need more breath, others need tightening'
+            : 'The rhythm feels natural and engaging',
+          fromTheirPerspectives: new Map([
+            ['yazhi', rhythmAnalysis.hasVariedPacing
+              ? 'Good - you know when to linger and when to move. The story breathes.'
+              : 'The narrative needs more rhythm variation. Think of it like music - fast and slow, loud and quiet.'
+            ]
+          ]),
+          emotionalQuality: weaknesses.length > 0 ? 'attentive-refinement' : 'appreciation',
+          whatEmerged: suggestions.length > 0 ? `Rhythmic guidance: ${suggestions[0]}` : 'Understanding of narrative flow',
+          relationshipType: 'mentorship'
+        }
+      );
+    }
+
     this.editorState.currentFocus = 'idle';
 
     return report;
@@ -264,6 +321,33 @@ export class NarrativeAnalysis {
     logger.info(chalk.green(`✅ Character analysis complete: ${strengths.length} strengths, ${weaknesses.length} areas for improvement`));
 
     this.analysisHistory.set('character', report);
+
+    // Record this as a shared experience if we're in relational memory mode
+    if (this.sharedContext) {
+      const ceremony = this.sharedContext.getCurrentCeremony();
+      const ceremonyName = ceremony?.name || 'narrative-refinement';
+
+      await this.sharedContext.weRemember(
+        `Yazhi examined the souls of the characters, discovering ${strengths.length} strengths and ${weaknesses.length} opportunities for deepening`,
+        {
+          withWhom: ['yazhi'],
+          duringCeremony: ceremonyName,
+          fromMyPerspective: arcs.hasGrowth
+            ? 'I can see the characters transforming - they\'re not static, they\'re alive'
+            : 'I want the characters to grow and change, not just witness events',
+          fromTheirPerspectives: new Map([
+            ['yazhi', arcs.hasGrowth
+              ? `These characters have depth. They want something, they struggle, they change. This is how stories live.`
+              : `Characters must want something - even if just a glass of water. Give them desires, fears, transformations.`
+            ]
+          ]),
+          emotionalQuality: arcs.hasGrowth ? 'recognition' : 'encouraging-challenge',
+          whatEmerged: suggestions.length > 0 ? `Character deepening: ${suggestions[0]}` : 'Understanding of character truth',
+          relationshipType: 'mentorship'
+        }
+      );
+    }
+
     this.editorState.currentFocus = 'idle';
 
     return report;
