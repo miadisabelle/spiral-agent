@@ -6,6 +6,10 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 import boxen from 'boxen';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { logger } from './utils/logger.js';
 import { SpiralAgent } from './agent/SpiralAgent.js';
 import { DatabaseManager } from './utils/database.js';
@@ -145,10 +149,36 @@ program
     await agent.startInteractiveMode();
   });
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// Refine narrative command
+program
+  .command('refine-narrative')
+  .description('🌀 Iteratively refine a narrative through multi-pass editorial feedback')
+  .argument('<input>', 'Input story file path')
+  .option('-o, --output <dir>', 'Output directory for refined versions', './refined-narratives')
+  .option('-p, --passes <number>', 'Number of refinement passes (1-3)', '3')
+  .option('-v, --verbose', 'Enable verbose logging')
+  .action(async (input, options) => {
+    showBanner();
+    logger.info(chalk.bold.cyan('🌀 Iterative Narrative Refinement\n'));
+
+    const { refineNarrative } = await import('./commands/refineNarrative.js');
+
+    try {
+      const result = await refineNarrative({
+        inputFile: input,
+        outputDir: options.output,
+        passes: parseInt(options.passes),
+        verbose: options.verbose
+      });
+
+      logger.info(chalk.green(`\n✨ Refinement successful!`));
+      logger.info(chalk.white(`Final version: V${result.version}`));
+      logger.info(chalk.white(`Location: ${result.outputDir}\n`));
+    } catch (error: any) {
+      logger.error(chalk.red('❌ Refinement failed:'), error);
+      process.exit(1);
+    }
+  });
 
 async function main() {
   // --- Plugin Loading Logic ---
